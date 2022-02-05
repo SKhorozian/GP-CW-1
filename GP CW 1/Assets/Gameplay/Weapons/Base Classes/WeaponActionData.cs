@@ -6,5 +6,6 @@ namespace SKhorozian.CoreGameplay.Weapons
     {
         public Vector3 FirePoint;
         public Vector3 Direction;
+        public float MaxDistance;
     }
 }

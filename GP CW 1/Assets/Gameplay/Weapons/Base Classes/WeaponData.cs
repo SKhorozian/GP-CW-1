@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SKhorozian.CoreGameplay.Weapons
 {
     [CreateAssetMenu(fileName = "New Weapon", menuName = "Weapons/Create new Weapon")]
-    public class BaseWeapon : ScriptableObject
+    public class WeaponData : ScriptableObject
     {
         [SerializeField] private float fireRate;
         public float FireRate => fireRate;
+
+        [SerializeField] private float equipTime;
+        public float EquipTime => equipTime;
 
         [Space(10)]
         [SerializeField] private float firstShotAccuracy;
@@ -39,12 +40,6 @@ namespace SKhorozian.CoreGameplay.Weapons
 
         [SerializeField] private int burstFire;
         public int BurstFire => burstFire;
-        
-        [Space(10)]
-        
-        [Space(10)]
-        [SerializeField] private WeaponAction primaryFire;
-        [SerializeField] private WeaponAction secondaryFire;
     }
 
     public enum SelectiveFire

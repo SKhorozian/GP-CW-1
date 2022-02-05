@@ -4,11 +4,12 @@ public class RootManager : MonoBehaviour
 {
     private static RootManager _instance;
 
-    void Awake()
+    private void Awake()
     {
         if (_instance != null)
-            DestroyImmediate(gameObject);
+            Destroy(gameObject);
         
+        _instance = this;
         DontDestroyOnLoad(gameObject);
     }
 }
