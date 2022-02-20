@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.skhorozian.unitysingletons": {
+      "version": "https://github.com/SKhorozian/com.skhorozian.unitysingletons.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e4c14236f30b30ee42862cbd6c082420da8a4812"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -23,11 +30,10 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "1.15.4",
+      "version": "1.15.13",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "2.0.0",
         "com.unity.services.core": "1.0.1"
       },
       "url": "https://packages.unity.com"
@@ -40,7 +46,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.10",
+      "version": "3.0.12",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -80,13 +86,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.nuget.newtonsoft-json": {
-      "version": "2.0.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.postprocessing": {
       "version": "3.1.1",
       "depth": 0,
@@ -97,7 +96,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.probuilder": {
-      "version": "5.0.3",
+      "version": "5.0.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {

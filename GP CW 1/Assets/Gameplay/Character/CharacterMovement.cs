@@ -1,54 +1,71 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 
-namespace SKhorozian.FPSController.Character
+namespace SKhorozian.TennisGame.Character
 {
-    public abstract class CharacterMovement : MonoBehaviour
+    public class CharacterMovement : MonoBehaviour
     {
+        [Space(10)]
         //References
-        [SerializeField] protected Rigidbody rb;
-        [SerializeField] protected Transform characterTransform;
-        [SerializeField] private Transform orientation;
+        [SerializeField] private Rigidbody rb;
 
         [SerializeField] private MovementProperties properties;
 
-        public bool IsGrounded { get; private set; }
-        private void CheckGrounded () => IsGrounded = Physics.Raycast(characterTransform.position, Vector3.down , properties.HalfCharacterHeight + 0.1f, properties.groundLayer);
+        //Stats
+        private float stamina;
 
-        protected abstract Vector2 MoveInput { get; }
+        public void Start() {
+            stamina = properties.MaxStamina;
+        }
 
+        public Vector2 MoveInput { get; set; }
         private void FixedUpdate() {
-            CheckGrounded();
             Move(MoveInput);
             SetDrag();
+            RegenerateStamina();
+        }
+
+        private void RegenerateStamina() {
+            stamina += properties.StaminaRegenRate * Time.deltaTime;
+            stamina = Mathf.Clamp(stamina, 0, properties.MaxStamina);
         }
 
         private void SetDrag() {
-            rb.drag = IsGrounded ? properties.groundDrag : properties.aerialDrag;
+            rb.drag = properties.GroundDrag;
         }
 
-        private void Move(Vector2 input)
-        {
+        private void Move(Vector2 input) {
             input.Normalize();
-
-            var speedMult = IsGrounded ? properties.moveSpeed : properties.moveSpeed * properties.aerialSpeedMultiplier;
-            input *= speedMult;
-            var moveForce = orientation.forward * input.y + orientation.right * input.x;
+            
+            var moveForce = new Vector3(input.x, 0, input.y);
+            moveForce *= properties.MoveSpeed;
             
             rb.AddForce(moveForce, ForceMode.Acceleration);
         }
-    
-        protected void TryJump() {
-            if (IsGrounded) Jump();
-            else UngroundedJump();
-        }
 
-        private void Jump() {
-            var jumpPower = Mathf.Sqrt(-2f * Physics.gravity.y * properties.jumpHeight);
-            rb.AddForce(jumpPower * Vector3.up, ForceMode.VelocityChange);
-        }
-
-        private void UngroundedJump() {
+        public void Dash() => Dash(MoveInput);
+        
+        private void Dash(Vector2 input) {
+            if (input.magnitude == 0) return;
             
+            input.Normalize();
+
+            var dashForce = new Vector3(input.x, 0, input.y);
+            dashForce *= properties.DashPower;
+
+            rb.AddForce(dashForce, ForceMode.VelocityChange);
         }
+
+        
+        private void RegenerateStamina(float amount) {
+            stamina += amount;
+            stamina = Mathf.Clamp(stamina, 0, properties.MaxStamina);
+        }
+        
+        private void ConsumeStamina(float amount) {
+            RegenerateStamina(-amount);
+        }
+
     }
 }

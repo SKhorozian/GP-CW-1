@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace SKhorozian.FPSController.Input
+namespace SKhorozian.TennisGame.Input
 {
     public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
@@ -39,22 +39,13 @@ namespace SKhorozian.FPSController.Input
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""448af591-c750-4f9f-8b6a-05833f5df708"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""70bc4485-e7f8-47aa-be50-3c071a38d9c0"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""PrimaryFire"",
@@ -64,24 +55,6 @@ namespace SKhorozian.FPSController.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SecondaryFire"",
-                    ""type"": ""Button"",
-                    ""id"": ""0238a453-2775-4587-82d5-5adf065d2abf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SwapWeapon"",
-                    ""type"": ""Value"",
-                    ""id"": ""35571ff3-ac5a-47c3-83f3-c5c0cab55d01"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -147,18 +120,18 @@ namespace SKhorozian.FPSController.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""09c5009c-c922-4886-9d4a-b6ce6412bc2e"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""979be5a9-a072-42fb-967c-9fb09c201204"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -170,28 +143,6 @@ namespace SKhorozian.FPSController.Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PrimaryFire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""68f86516-cd75-4424-8d6e-3fc36d04687d"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SecondaryFire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c1399070-eabf-471a-8404-30a642b358d5"",
-                    ""path"": ""<Mouse>/scroll/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwapWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -209,11 +160,8 @@ namespace SKhorozian.FPSController.Input
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-            m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+            m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
             m_Player_PrimaryFire = m_Player.FindAction("PrimaryFire", throwIfNotFound: true);
-            m_Player_SecondaryFire = m_Player.FindAction("SecondaryFire", throwIfNotFound: true);
-            m_Player_SwapWeapon = m_Player.FindAction("SwapWeapon", throwIfNotFound: true);
             // Off
             m_Off = asset.FindActionMap("Off", throwIfNotFound: true);
         }
@@ -276,21 +224,15 @@ namespace SKhorozian.FPSController.Input
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
         private readonly InputAction m_Player_Movement;
-        private readonly InputAction m_Player_Jump;
-        private readonly InputAction m_Player_Look;
+        private readonly InputAction m_Player_Dash;
         private readonly InputAction m_Player_PrimaryFire;
-        private readonly InputAction m_Player_SecondaryFire;
-        private readonly InputAction m_Player_SwapWeapon;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
             public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Player_Movement;
-            public InputAction @Jump => m_Wrapper.m_Player_Jump;
-            public InputAction @Look => m_Wrapper.m_Player_Look;
+            public InputAction @Dash => m_Wrapper.m_Player_Dash;
             public InputAction @PrimaryFire => m_Wrapper.m_Player_PrimaryFire;
-            public InputAction @SecondaryFire => m_Wrapper.m_Player_SecondaryFire;
-            public InputAction @SwapWeapon => m_Wrapper.m_Player_SwapWeapon;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -303,21 +245,12 @@ namespace SKhorozian.FPSController.Input
                     @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                     @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                     @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                    @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                    @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                    @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                    @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                    @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                    @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                     @PrimaryFire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimaryFire;
                     @PrimaryFire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimaryFire;
                     @PrimaryFire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrimaryFire;
-                    @SecondaryFire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondaryFire;
-                    @SecondaryFire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondaryFire;
-                    @SecondaryFire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondaryFire;
-                    @SwapWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwapWeapon;
-                    @SwapWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwapWeapon;
-                    @SwapWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwapWeapon;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -325,21 +258,12 @@ namespace SKhorozian.FPSController.Input
                     @Movement.started += instance.OnMovement;
                     @Movement.performed += instance.OnMovement;
                     @Movement.canceled += instance.OnMovement;
-                    @Jump.started += instance.OnJump;
-                    @Jump.performed += instance.OnJump;
-                    @Jump.canceled += instance.OnJump;
-                    @Look.started += instance.OnLook;
-                    @Look.performed += instance.OnLook;
-                    @Look.canceled += instance.OnLook;
+                    @Dash.started += instance.OnDash;
+                    @Dash.performed += instance.OnDash;
+                    @Dash.canceled += instance.OnDash;
                     @PrimaryFire.started += instance.OnPrimaryFire;
                     @PrimaryFire.performed += instance.OnPrimaryFire;
                     @PrimaryFire.canceled += instance.OnPrimaryFire;
-                    @SecondaryFire.started += instance.OnSecondaryFire;
-                    @SecondaryFire.performed += instance.OnSecondaryFire;
-                    @SecondaryFire.canceled += instance.OnSecondaryFire;
-                    @SwapWeapon.started += instance.OnSwapWeapon;
-                    @SwapWeapon.performed += instance.OnSwapWeapon;
-                    @SwapWeapon.canceled += instance.OnSwapWeapon;
                 }
             }
         }
@@ -372,11 +296,8 @@ namespace SKhorozian.FPSController.Input
         public interface IPlayerActions
         {
             void OnMovement(InputAction.CallbackContext context);
-            void OnJump(InputAction.CallbackContext context);
-            void OnLook(InputAction.CallbackContext context);
+            void OnDash(InputAction.CallbackContext context);
             void OnPrimaryFire(InputAction.CallbackContext context);
-            void OnSecondaryFire(InputAction.CallbackContext context);
-            void OnSwapWeapon(InputAction.CallbackContext context);
         }
         public interface IOffActions
         {

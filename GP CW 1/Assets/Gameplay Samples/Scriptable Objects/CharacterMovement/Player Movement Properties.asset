@@ -13,11 +13,5 @@ MonoBehaviour:
   m_Name: Player Movement Properties
   m_EditorClassIdentifier: 
   characterHeight: 1.75
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  moveSpeed: 25
-  aerialSpeedMultiplier: 0.2
+  moveSpeed: 35
   groundDrag: 5
-  aerialDrag: 1
-  jumpHeight: 2
