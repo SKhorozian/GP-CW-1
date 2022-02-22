@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
-namespace SKhorozian.TennisGame.Input {
+namespace SKhorozian.GPCW.Input {
     public class InputProvider : MonoSingleton<InputProvider>
     {
         //Input Actions

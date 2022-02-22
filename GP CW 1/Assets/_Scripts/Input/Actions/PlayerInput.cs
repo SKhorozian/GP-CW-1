@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace SKhorozian.TennisGame.Input
+namespace SKhorozian.GPCW.Input
 {
     public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {

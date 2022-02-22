@@ -1,8 +1,7 @@
-using System;
-using SKhorozian.TennisGame.Input;
+using SKhorozian.GPCW.Input;
 using UnityEngine;
 
-namespace SKhorozian.TennisGame.Character
+namespace SKhorozian.GPCW.Character
 {
     public class PlayerController : MonoBehaviour
     {

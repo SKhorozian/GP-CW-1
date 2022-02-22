@@ -1,8 +1,7 @@
-using System;
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace SKhorozian.TennisGame.Character
+namespace SKhorozian.GPCW.Character
 {
     public class CharacterMovement : MonoBehaviour
     {
@@ -13,22 +12,18 @@ namespace SKhorozian.TennisGame.Character
         [SerializeField] private MovementProperties properties;
 
         //Stats
-        private float stamina;
+        [SerializeField] private float currentStamina;
 
         public void Start() {
-            stamina = properties.MaxStamina;
+            currentStamina = properties.MaxStamina;
         }
 
         public Vector2 MoveInput { get; set; }
         private void FixedUpdate() {
             Move(MoveInput);
             SetDrag();
-            RegenerateStamina();
-        }
-
-        private void RegenerateStamina() {
-            stamina += properties.StaminaRegenRate * Time.deltaTime;
-            stamina = Mathf.Clamp(stamina, 0, properties.MaxStamina);
+            
+            RegenerateStamina(properties.StaminaRegenRate * Time.deltaTime);
         }
 
         private void SetDrag() {
@@ -47,6 +42,7 @@ namespace SKhorozian.TennisGame.Character
         public void Dash() => Dash(MoveInput);
         
         private void Dash(Vector2 input) {
+            if (currentStamina < properties.DashCost) return;
             if (input.magnitude == 0) return;
             
             input.Normalize();
@@ -55,17 +51,32 @@ namespace SKhorozian.TennisGame.Character
             dashForce *= properties.DashPower;
 
             rb.AddForce(dashForce, ForceMode.VelocityChange);
+            
+            ConsumeStamina(properties.DashCost);
         }
 
         
         private void RegenerateStamina(float amount) {
-            stamina += amount;
-            stamina = Mathf.Clamp(stamina, 0, properties.MaxStamina);
+            currentStamina += amount;
+            currentStamina = Mathf.Clamp(currentStamina, 0, properties.MaxStamina);
+            
+            OnStaminaChange?.Invoke(currentStamina / properties.MaxStamina);
         }
         
         private void ConsumeStamina(float amount) {
-            RegenerateStamina(-amount);
+            currentStamina -= amount;
+            currentStamina = Mathf.Clamp(currentStamina, 0, properties.MaxStamina);
+            
+            OnStaminaChange?.Invoke(currentStamina / properties.MaxStamina);
         }
+
+        #region Events
+        [Space (20)]
+        [SerializeField] private UnityEvent<float> OnStaminaChange;
+        public void RegisterForOnStaminaChange(UnityAction<float> action) => OnStaminaChange.AddListener(action);
+
+
+        #endregion
 
     }
 }

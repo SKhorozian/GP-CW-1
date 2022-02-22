@@ -1,3 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Crosshair" style="background-color: rgb(255, 255, 255); border-top-left-radius: 129px; border-bottom-left-radius: 129px; border-top-right-radius: 129px; border-bottom-right-radius: 129px; width: 6px; height: 6px; position: absolute; left: 50%; top: 50%; right: 50%; bottom: 50%;" />
-</ui:UXML>

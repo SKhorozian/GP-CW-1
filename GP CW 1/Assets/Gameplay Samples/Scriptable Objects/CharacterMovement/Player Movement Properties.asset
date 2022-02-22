@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fab04aaaf6497680032f4f7152d9ef, type: 3}
   m_Name: Player Movement Properties
   m_EditorClassIdentifier: 
-  characterHeight: 1.75
-  moveSpeed: 35
-  groundDrag: 5
+  <MoveSpeed>k__BackingField: 30
+  <GroundDrag>k__BackingField: 5
+  <DashPower>k__BackingField: 20
+  <MaxStamina>k__BackingField: 100
+  <StaminaRegenRate>k__BackingField: 20
+  <DashCost>k__BackingField: 33
