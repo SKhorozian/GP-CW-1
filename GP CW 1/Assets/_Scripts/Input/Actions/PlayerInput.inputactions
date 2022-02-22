@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MouseScreenPosition",
+                    "type": "Value",
+                    "id": "37472b41-8edb-4b7a-a602-c97eb1e66453",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -119,6 +128,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PrimaryFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1cd75c18-aee1-4355-8dc3-3a64a8f40e89",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseScreenPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -24,6 +24,9 @@ namespace SKhorozian.GPCW.Input {
             _playerInput.Player.PrimaryFire.started += PrimaryFireInput;
             _playerInput.Player.PrimaryFire.performed += PrimaryFireInput;
             _playerInput.Player.PrimaryFire.canceled += PrimaryFireInput;
+
+            _playerInput.Player.MouseScreenPosition.performed += MouseScreenPositionInput;
+            _playerInput.Player.MouseScreenPosition.canceled += MouseScreenPositionInput;
         }
 
         #region Input Listeners
@@ -32,7 +35,6 @@ namespace SKhorozian.GPCW.Input {
         private void MoveInput (InputAction.CallbackContext ctx) {
             MoveInputValue = ctx.ReadValue<Vector2>();
         }
-        
 
         public UnityEvent OnPrimaryFireInput;
         public bool PrimaryFireHeldDown { get; private set; }
@@ -45,6 +47,11 @@ namespace SKhorozian.GPCW.Input {
         public UnityEvent OnDashInput;
         private void DashInput(InputAction.CallbackContext ctx) {
             OnDashInput?.Invoke();
+        }
+
+        public Vector2 MouseScreenPosition { get; private set; }
+        private void MouseScreenPositionInput(InputAction.CallbackContext ctx) {
+            MouseScreenPosition = ctx.ReadValue<Vector2>();
         }
 
         #endregion
