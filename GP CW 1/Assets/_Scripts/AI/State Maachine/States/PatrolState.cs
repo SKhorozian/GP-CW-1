@@ -26,7 +26,7 @@ namespace SKhorozian.GPCW.AI
         }
 
         public override State PerformState() {
-            if (FindPlayer()) return new ChaseState(_playerTransform, _machineTransform, _agent);
+            if (FindPlayer()) return new AttackState(_playerTransform, _machineTransform, _agent);
 
             _timer -= Time.deltaTime;
             if (_timer > 0) return this;

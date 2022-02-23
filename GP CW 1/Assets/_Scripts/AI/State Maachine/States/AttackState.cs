@@ -1,10 +1,11 @@
+using SKhorozian.GPCW.Combat;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace SKhorozian.GPCW.AI
 {
-    public class ChaseState : State
+    public class AttackState : State
     {
         private const float ChaseDistance = 12.5f;
         private const float StopDistance = 8f;
@@ -16,13 +17,17 @@ namespace SKhorozian.GPCW.AI
         private Transform _machineTransform;
         private Transform _playerTransform;
         private NavMeshAgent _agent;
+
+        private float attackTimer;
         
-        public ChaseState(Transform playerTransform, Transform machineTransform, NavMeshAgent agent) {
+        public AttackState(Transform playerTransform, Transform machineTransform, NavMeshAgent agent) {
             _playerTransform = playerTransform;
             _machineTransform = machineTransform;
             _agent = agent;
             
             _agent.speed = Speed;
+
+            attackTimer = Random.Range(2f, 5f);
         }
         
         public override State PerformState() {
@@ -31,6 +36,9 @@ namespace SKhorozian.GPCW.AI
             var flockDirection = Flocking();
             OrbitPlayer(flockDirection);
 
+            if (attackTimer > 0) attackTimer -= Time.deltaTime;
+            else FireAttack();
+            
             return this;
         }
         
@@ -85,6 +93,28 @@ namespace SKhorozian.GPCW.AI
             var ray = new Ray(machinePosition, direction);
 
             return Physics.Raycast(ray, out var hit, ChaseDistance, _playerLayer) && hit.transform.CompareTag("Player");
+        }
+
+        private void FireAttack() {
+            var machinePosition = _machineTransform.position;
+            var direction = _playerTransform.position - machinePosition;
+            direction.Normalize();
+            
+            var ray = new Ray(machinePosition, direction);
+
+            if (Physics.SphereCast(ray, 1f, out var hit)) 
+                if (!hit.transform.CompareTag("Player")) {
+                    attackTimer = 1f;
+                    return;   
+                }
+            
+
+            var direction2D = new Vector2(direction.x, direction.z);
+            var firePoint = _machineTransform.position + direction * 1.5f;
+
+            ProjectilePool.instance.RequestProjectileSpawn(firePoint, direction2D);
+
+            attackTimer = Random.Range(2f, 5f);
         }
     }
 }
