@@ -25,8 +25,8 @@ namespace SKhorozian.GPCW.Input
             mouseScreenPos /= new Vector2(Screen.width, Screen.height);
             mouseScreenPos = (mouseScreenPos - (Vector2.one/2)) * 2;
 
-            var mouseWorldPos = new Vector3(mouseScreenPos.x * maxDistanceFromPlayer, 0, mouseScreenPos.y * maxDistanceFromPlayer);
-            var midpoint = new Vector3((playerPos.x + playerPos.x + mouseWorldPos.x) / 2, playerPos.y, (playerPos.z + playerPos.z + mouseWorldPos.z) / 2);
+            var mouseWorldPos = new Vector3(mouseScreenPos.x * maxDistanceFromPlayer + playerPos.x, 0, mouseScreenPos.y * maxDistanceFromPlayer + playerPos.z);
+            var midpoint = new Vector3((playerPos.x + mouseWorldPos.x) / 2, playerPos.y, (playerPos.z + mouseWorldPos.z) / 2);
 
             var lookPos = midpoint + offset;
 

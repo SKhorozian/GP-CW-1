@@ -61,7 +61,7 @@ MonoBehaviour:
   properties: {fileID: 11400000, guid: c1496006ecc3dc44e863676eef8f89a9, type: 2}
   fillFront: {fileID: 7039572823077113666}
   fillSmooth: {fileID: 1147684200740362602}
-  lerpAmount: 10
+  lerpAmount: 5
   canDash: {r: 0.87058824, g: 0.9254902, b: 0.6313726, a: 1}
   cannotDash: {r: 0.8679245, g: 0.29621524, b: 0.29067284, a: 1}
 --- !u!1 &4619134045553637903
