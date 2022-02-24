@@ -12,9 +12,7 @@ namespace SKhorozian.GPCW.Combat
         private void Start() {
             for (var i = 0; i < 15; i++) {
                 var obj = Instantiate(projectilePrefab, Vector3.zero, quaternion.identity);
-                
-                obj.SetActive(false);
-                
+
                 pool.Add(obj.GetComponent<Projectile>());                
             }
         }
@@ -26,11 +24,6 @@ namespace SKhorozian.GPCW.Combat
             projectile.Reinitialize(spawnPoint, forceDir);
 
             pool.Add(projectile);
-        }
-
-        public void ReadyForReuse(Projectile projectile) {
-            if (pool.Contains(projectile)) pool.Remove(projectile);
-            pool.Insert(0, projectile);
         }
 
     }

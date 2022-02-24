@@ -21,9 +21,7 @@ namespace SKhorozian.GPCW.Input {
 
             _playerInput.Player.Dash.performed += DashInput;
             
-            _playerInput.Player.PrimaryFire.started += PrimaryFireInput;
             _playerInput.Player.PrimaryFire.performed += PrimaryFireInput;
-            _playerInput.Player.PrimaryFire.canceled += PrimaryFireInput;
 
             _playerInput.Player.MouseScreenPosition.performed += MouseScreenPositionInput;
             _playerInput.Player.MouseScreenPosition.canceled += MouseScreenPositionInput;
@@ -37,11 +35,8 @@ namespace SKhorozian.GPCW.Input {
         }
 
         public UnityEvent OnPrimaryFireInput;
-        public bool PrimaryFireHeldDown { get; private set; }
         private void PrimaryFireInput(InputAction.CallbackContext ctx) {
-            if (ctx.performed) OnPrimaryFireInput?.Invoke();
-
-            PrimaryFireHeldDown = !ctx.canceled;
+            OnPrimaryFireInput?.Invoke();
         }
 
         public UnityEvent OnDashInput;

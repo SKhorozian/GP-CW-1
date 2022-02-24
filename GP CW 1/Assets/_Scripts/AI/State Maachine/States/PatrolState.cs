@@ -5,28 +5,26 @@ namespace SKhorozian.GPCW.AI
 {
     public class PatrolState : State
     {
-        private const float NoticeDistance = 10f;
+        private const float NoticeDistance = 12f;
         private const float Speed = 3f;
 
         private Vector3 _destination;
-        private Transform _machineTransform;
         private Transform _playerTransform;
-        private NavMeshAgent _agent;
+        private StateMachine _machine;
 
         private float _timer;
 
-        public PatrolState(Transform playerTransform, Transform machineTransform, NavMeshAgent agent) {
-            _machineTransform = machineTransform;
+        public PatrolState(Transform playerTransform, StateMachine machine) {
+            _machine = machine;
             _playerTransform = playerTransform;
-            _agent = agent;
-
-            _agent.speed = Speed;
+            
+            _machine.Agent.speed = Speed;
             
             AssignNewDestination();
         }
 
         public override State PerformState() {
-            if (FindPlayer()) return new AttackState(_playerTransform, _machineTransform, _agent);
+            if (FindPlayer()) return new AttackState(_playerTransform, _machine);
 
             _timer -= Time.deltaTime;
             if (_timer > 0) return this;
@@ -37,7 +35,7 @@ namespace SKhorozian.GPCW.AI
         }
 
         private bool FindPlayer() {
-            var machinePosition = _machineTransform.position;
+            var machinePosition = _machine.transform.position;
             var direction = _playerTransform.position - machinePosition;
             direction.Normalize();
 
@@ -47,7 +45,7 @@ namespace SKhorozian.GPCW.AI
         }
 
         private void AssignNewDestination() {
-            var machinePosition = _machineTransform.position;
+            var machinePosition = _machine.transform.position;
             
             var x = Random.Range(-10, 10) + machinePosition.x;
             var z = Random.Range(-10, 10) + machinePosition.z;
@@ -55,9 +53,9 @@ namespace SKhorozian.GPCW.AI
 
             _timer = Random.Range(2, 8);
             
-            _agent.SetDestination(_destination);
+            _machine.Agent.SetDestination(_destination);
             
-            _machineTransform.LookAt(_destination);
+            _machine.transform.LookAt(_destination);
         }
     }
 }
