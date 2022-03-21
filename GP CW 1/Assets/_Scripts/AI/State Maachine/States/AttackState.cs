@@ -26,7 +26,7 @@ namespace SKhorozian.GPCW.AI
             
             _machine.Agent.speed = Speed;
 
-            attackTimer = Random.Range(2f, 4f);
+            attackTimer = Random.Range(0.75f, 1.5f);
         }
         
         public override State PerformState() {
@@ -103,7 +103,7 @@ namespace SKhorozian.GPCW.AI
 
             if (Physics.SphereCast(ray, 1f, out var hit)) 
                 if (!hit.transform.CompareTag("Player")) {
-                    attackTimer = 1f;
+                    attackTimer = 0.25f;
                     return;   
                 }
             
@@ -116,7 +116,7 @@ namespace SKhorozian.GPCW.AI
             _machine.ParticleSystem.Play();
             _machine.AudioSource.Play();
             
-            attackTimer = Random.Range(1f, 2.5f);
+            attackTimer = Random.Range(0.5f, 1.25f);
         }
     }
 }
